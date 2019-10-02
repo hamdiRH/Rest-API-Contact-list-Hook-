@@ -1,0 +1,3 @@
+{
+  "MONGOURI": "mongodb+srv://gmc:gmc@cluster0-6zh0r.mongodb.net/contactlist?retryWrites=true&w=majority"
+}
