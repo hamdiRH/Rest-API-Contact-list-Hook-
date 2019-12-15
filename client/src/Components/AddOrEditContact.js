@@ -1,8 +1,12 @@
 import React, { useState } from "react";
-import { connect } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 import { updateContact, addContact } from "../Actions";
 
-const AddOrEditContact = ({ match, updateContact, contacts, addContact }) => {
+const AddOrEditContact = ({ match}) => {
+  const contacts = useSelector(state => state.contacts)
+  const dispatch = useDispatch()
+
+
   const { id } = match.params;
   const mycontact = contacts.find(el => el._id === id);
   const [contact, setContact] = useState({ ...mycontact });
@@ -34,7 +38,7 @@ const AddOrEditContact = ({ match, updateContact, contacts, addContact }) => {
       />
       <button
         onClick={() => {
-          id ? updateContact(id, contact) : addContact(contact);
+          id ? dispatch(updateContact(id, contact)) : dispatch(addContact(contact));
         }}
       >
         {id ? "Edit Contact" : "Add Contact"}
@@ -43,7 +47,4 @@ const AddOrEditContact = ({ match, updateContact, contacts, addContact }) => {
   );
 };
 
-export default connect(
-  state => ({ ...state }),
-  { updateContact, addContact }
-)(AddOrEditContact);
+export default (AddOrEditContact)

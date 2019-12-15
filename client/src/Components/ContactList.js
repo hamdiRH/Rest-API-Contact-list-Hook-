@@ -1,12 +1,17 @@
 import React, { useEffect } from "react";
-import { connect } from "react-redux";
+import { useSelector,useDispatch } from "react-redux";
 import {Link} from "react-router-dom"
 import { getcontact, deleteContact } from "../Actions";
 
-const ContactList = ({ getcontact, isloading, contacts, deleteContact }) => {
+const ContactList = () => {
+  const isloading = useSelector(state => state.isloading)
+  const contacts = useSelector(state => state.contacts)
+
+  const dispatch = useDispatch()
+  
   useEffect(() => {
-    getcontact();
-  }, [getcontact]);
+    dispatch(getcontact());
+  }, [dispatch]);
   return isloading ? (
     <h1 className="text-center text-info mt-5">Is Loading</h1>
   ) : (
@@ -40,7 +45,4 @@ const ContactList = ({ getcontact, isloading, contacts, deleteContact }) => {
   );
 };
 
-export default connect(
-  state => ({ ...state }),
-  { getcontact, deleteContact }
-)(ContactList);
+export default ContactList
